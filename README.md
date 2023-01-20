@@ -1,6 +1,6 @@
 
 
-### Weighted_Transformation
+### Mean_Transformation
 
 ---
 
@@ -55,7 +55,7 @@ where norm is *Frobenius norm*(https://en.wikipedia.org/wiki/Matrix_norm#Frobeni
 *Ji Eun Lee : Department of Mathematics and Statistics, Sejong university* - jieunlee@sejong.ac.kr
 
 
-====================================================================================
+===================================================================================
 
 
 Last Update : 2023-01-20
