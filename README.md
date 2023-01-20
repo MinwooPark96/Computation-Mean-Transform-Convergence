@@ -4,7 +4,7 @@
 
 ---
 
-#### 1. `Transform(T, n, s = 1/2, t=1/2, isometry = true)` : iterate n times for transformation.
+#### 1. `transform(T, n, s = 1/2, t=1/2, isometry = true)` : iterate n times for transformation.
 
 - Parameters
     
@@ -19,23 +19,23 @@
     `isometry (bool)` : select U is isometry or not(unitary) 
 
  
-#### 2. `Transfomation.Normal_calculator()` : Norm and Normality Calculation Function.
+#### 2. `normal_calculator()` : Norm and Normality Calculation Function.
 
 where norm is *Frobenius norm*(https://en.wikipedia.org/wiki/Matrix_norm#Frobenius_norm).
 
-- `Transfomation.norm_info` : A list in which the norm of the Transformation is stored.
+- `norm_info` : A list in which the norm of the Transformation is stored.
    
-- `Transfomation.normal_info` : A list in which normal characteristic is stored.
+- `normal_info` : A list in which normal characteristic is stored.
 
 ---
 
-#### 3.` Transformation.Process(k, digit = 4)` : You can check the calculation process of a specific part.
+#### 3.` process(k, dicimals = 4)` : You can check the calculation process of a specific part.
     
 - Parameters
 
    `k (int)` : purpose number of repetitions 
 
-    `digit (int)` : digit of output matrices 
+    `dicimals (int)` : dicimal of output matrices 
 
 - Return
 
@@ -43,7 +43,7 @@ where norm is *Frobenius norm*(https://en.wikipedia.org/wiki/Matrix_norm#Frobeni
 
 ---
 
-#### 4. `Transformation.Plot()` : plotting of normal characteristic.
+#### 4. `normal_plot()` : plotting of normal characteristic.
    
 - axis X : number of iteration(`n`)
    
@@ -58,7 +58,7 @@ where norm is *Frobenius norm*(https://en.wikipedia.org/wiki/Matrix_norm#Frobeni
 ====================================================================================
 
 
-Last Update : 2023-01-04
+Last Update : 2023-01-20
 
 
 
