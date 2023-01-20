@@ -122,9 +122,7 @@ class MeanTrans():
     def __getitem__(self,key):
         return self.st[key]
 
-
-
-
+#test code
 if __name__ == "__main__":
     T = np.matrix([0, 27890, 0, 0]).reshape(2, 2)
     Transformer = MeanTrans()
