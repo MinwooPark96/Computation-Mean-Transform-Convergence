@@ -1,6 +1,1 @@
-./media/documents
-*.csv!
-/group_project/settings.py
 .DS_Store
-.idea
-config/__pycache__/
