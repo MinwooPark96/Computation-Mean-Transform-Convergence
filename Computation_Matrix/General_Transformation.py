@@ -1,9 +1,9 @@
+
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
 import copy
 
-class ADB_Transformation():
+class Transformation():
     
     def __init__(self):
         
@@ -11,21 +11,20 @@ class ADB_Transformation():
         self.type_dict={0:"Aluthge",1:"Duggal",2:"Mean"}
         self.type_dict_2= {v: k for k, v in self.type_dict.items()}
 
-    def Epoch(self,T,Type): # one iteration 
+    def cycle(self,T,Type): # one iteration
         
         #Singular Value Decomposition
         w,sigma,v_h=np.linalg.svd(T)    
         sigma=np.diag(sigma) 
         v=v_h.H
         
-        #Pre-calculation for Transformations 
         sigma_sq=np.sqrt(sigma)
         sigma_hat=v@sigma_sq@v_h 
         sigma_pinv=np.linalg.pinv(sigma)
         
-        #Check which U do you want, unitary or partial isometry
+        #Check which U do you want; unitary or partial isometry
         if self.isometry:
-            u=w@sigma@sigma_pinv@v_h #check definition of u
+            u=w@sigma@sigma_pinv@v_h
         else :
             u=w@v_h
         
@@ -60,7 +59,7 @@ class ADB_Transformation():
         
             for i in range(self.n):
                 
-                after=self.Epoch(before,Type=j)
+                after=self.cycle(before,Type=j)
                 cal_info.append(after)
                 before=after
             
@@ -83,7 +82,7 @@ class ADB_Transformation():
                 self.norm_info[i].append(norm)
     
     
-    def Normal_plot(self): # plot that dipicts Frobenius norm of T(T^*)-(T^*)T
+    def Normal_plot(self):
 
         self.total_fig, self.total_ax=plt.subplots(1,1)
         
