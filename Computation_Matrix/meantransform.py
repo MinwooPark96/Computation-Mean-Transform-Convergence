@@ -53,7 +53,8 @@ class MeanTrans():
         
         for j in self.st:
             norm = np.linalg.norm(j)
-            distance_matrix = np.abs(j@j.H-j.H@j)
+            # distance_matrix = np.abs(j@j.H-j.H@j)
+            distance_matrix = j @ j.H - j.H @ j
             distance = np.linalg.norm(distance_matrix)
             self.normal_info.append(distance)
             self.norm_info.append(norm)
