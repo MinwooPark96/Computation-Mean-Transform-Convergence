@@ -91,6 +91,8 @@ class MeanTrans():
         sigma_sq=np.sqrt(sigma)
         sigma_hat=v@sigma_sq@v_h
         sigma_pinv=np.linalg.pinv(sigma)
+        print("Sigma_pinv\n", np.round(sigma_pinv, dicimals), "\n")
+
         if self.isometry:
             u=w@sigma@sigma_pinv@v_h
             print("U=W\Sigma\Sigma_pinv V^*\n", np.round(u, dicimals), "\n")
