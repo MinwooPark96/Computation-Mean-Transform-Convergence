@@ -17,9 +17,9 @@ class MeanTrans():
         sigma_sq = np.sqrt(sigma)
         sigma_hat = v@sigma_sq@v_h
         sigma_pinv = np.linalg.pinv(sigma)
-
+        indicator = np.logical_not(np.isclose(sigma,0))
         if self.isometry:
-            u = w@sigma@sigma_pinv@v_h
+            u = w@indicator@v_h
         else:
             u = w@v_h
         
@@ -65,7 +65,7 @@ class MeanTrans():
         self.total_fig, self.total_ax=plt.subplots(1,1)
         
         self.total_ax.plot(range(self.n+1),self.normal_info,color="b",alpha=0.5,marker="o",linestyle="dashed")
-        self.total_ax.set_title("Normal Characteristic")
+        self.total_ax.set_title("The norm of Matices")
         self.total_fig.set_size_inches((16,4))
         self.total_ax.grid(axis='x', color='0.95',linestyle="--")
         
