@@ -1,6 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import copy
 class MeanTrans():
     
     def __init__(self):
