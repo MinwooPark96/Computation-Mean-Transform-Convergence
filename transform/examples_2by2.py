@@ -1,7 +1,6 @@
 import numpy as np
-import matsavelib.pysave as plt
+import matplotlib.pyplot as plt
 import copy
-
 
 from src import transform
 from src import utils
@@ -13,7 +12,6 @@ if __name__ == "__main__":
     meantrans1.compute(100)
     matrix_list1 = meantrans1.get_matrix_list(is_np = False)
     utils.save(meantrans=meantrans1, name = 'ex1')
-    
     
     matrix2 = np.matrix([0, 1, 0, 0]).reshape(2, 2)
     meantrans2 = transform.Meantrans(matrix1)
