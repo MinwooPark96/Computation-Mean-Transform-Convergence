@@ -105,3 +105,4 @@ if __name__ == "__main__":
         
     print(meantrans.norm_list)
     print(meantrans.normal_characteristic_list)
+    

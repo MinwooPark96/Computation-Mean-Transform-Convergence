@@ -4,8 +4,10 @@ import copy
 import os
 import seaborn as sns
 import pandas as pd
+import random
 
 from src import transform
+
 
 def save(meantrans : transform.Meantrans, name):
     
@@ -53,16 +55,28 @@ def save(meantrans : transform.Meantrans, name):
     os.makedirs('figure',exist_ok=True)
     plt.savefig('figure/'+name+'.png', bbox_inches = 'tight', dpi = 250, facecolor = ax.get_facecolor())
 
-    os.makedirs('csv',exist_ok=True)
-    df.to_csv('csv/'+name+'.csv')
+    os.makedirs('norm',exist_ok=True)
+    df.to_csv('norm/'+name+'.csv')
+
+    os.makedirs('matrix',exist_ok=True)
+    np.save('matrix/'+name,np.array(meantrans.get_matrix_list(is_np=True)))
     
     
-if __name__ == '__main__':
-    T = np.matrix([2, -1, 3, 4]).reshape(2, 2)
+def generate_random_complex(dim):
+    gen_list = list()
+
+    def generate_one_random_complex():
+        real_part = random.uniform(-100, 100)  # 임의의 범위에서 실수부 생성
+        imaginary_part = random.uniform(-100, 100)  # 임의의 범위에서 허수부 생성
+        return complex(real_part, imaginary_part)  # 복소수 생성
     
-    meantrans = transform.Meantrans(T)
-    meantrans.compute(n=0)
-    meantrans.compute(n=50)
+    for _ in range(dim*dim):
+        gen_list.append(generate_one_random_complex())
     
-    print(plot(meantrans))
-    
+    return np.matrix(gen_list).reshape(dim,dim)
+
+def load_matrix(name,dir='matrix/'):
+    return list(np.load(dir+name))
+
+
+
