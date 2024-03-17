@@ -38,6 +38,7 @@ def save(meantrans : transform.Meantrans, name):
     # plt.yscale('log')
     
     plt.locator_params(axis='x', nbins=meantrans.n/10)
+    
 
     ax.set_xlabel(ax.get_xlabel(), fontsize = 14, weight = 'bold', color = '0.2')
     ax.set_ylabel(ax.get_ylabel(), fontsize = 14, weight = 'bold', color = '0.2')
@@ -48,6 +49,7 @@ def save(meantrans : transform.Meantrans, name):
     'fontsize': 16,
     'fontweight': 'bold'
     }
+    
     plt.title("The Normal Characteristic of Matrix", fontdict=title_font, loc='left', pad=20)
     
     # total_ax.plot(range(meantrans.n+1),meantrans.normal_characteristic_list,color="b",alpha=0.5,marker="o",linestyle="dashed")
@@ -59,12 +61,12 @@ def save(meantrans : transform.Meantrans, name):
     df.to_csv('norm/'+name+'.csv')
 
     os.makedirs('matrix',exist_ok=True)
-    np.save('matrix/'+name,np.array(meantrans.get_matrix_list(is_np=True)))
+    np.save('matrix/'+name,np.array(meantrans.result))
     
     
-def generate_random_complex(dim):
+def generate_random_complex(dim,seed = 42):
     gen_list = list()
-
+    random.seed(seed)
     def generate_one_random_complex():
         real_part = random.uniform(-100, 100)  # 임의의 범위에서 실수부 생성
         imaginary_part = random.uniform(-100, 100)  # 임의의 범위에서 허수부 생성

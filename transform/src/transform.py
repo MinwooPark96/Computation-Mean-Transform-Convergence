@@ -4,87 +4,110 @@ import copy
 # from collections import defaultdict 
 
 
+def get_SVD(T):
+    w,sigma,v_h = np.linalg.svd(T)
+    sigma = np.diag(sigma)
+    
+    return w,sigma,v_h
 
-class Matrix():
+def get_duggal(T):
+    w,sigma,v_h = get_SVD(T)
     
-    def __init__(self,matrix : np.matrix, s=0.5, t=0.5):
-        self.matrix = matrix
-        
-        #svd
-        self.w,sigma,self.v_h = np.linalg.svd(self.matrix)
-        self.sigma = np.diag(sigma)
-        
-        self.v = self.v_h.H
-        
-        self.sigma_sq = np.sqrt(self.sigma)
-        
-        self.indicator = np.logical_not(np.isclose(self.sigma,0))
-        
-        self.u = self.w@self.indicator@self.v_h
-        
-        self.abs = self.v@self.sigma@self.v_h
-        self.duggal = self.abs@self.u
-        self.mean = s*self.matrix+t*self.get_duggal()
+    v = v_h.H
+    I = np.logical_not(np.isclose(sigma,0))
+    u = w@I@v_h
     
-    def get_duggal(self):
-        return self.duggal
+    abs = v@sigma@v_h
+    return abs@u
 
-    def get_mean(self):
-        return copy.deepcopy(self.mean)
+def get_mean(T,s=0.5,t=0.5):
+    return s*T + t*get_duggal(T)
+
+def get_norm(T):
+    return np.linalg.norm(T)
+
+def get_characteristic(T):
+    distance = T @ T.H - T.H @ T
+    return get_norm(distance)
+            
+
+def print_matrix(T):
+        for row in T:
+            print(row)
+        print()
+
+def get_info(T):
+    w,sigma,v_h = get_SVD(T)
+    v = v_h.H
+    I = np.logical_not(np.isclose(sigma,0))
+    u = w@I@v_h
     
-    def __str__(self):
-        return self.matrix
+    print('T=')
+    print_matrix(T)
     
-class Meantrans():
+    print('w = ')
+    print_matrix(w)
     
-    def __init__(self,matrix):
-        self.matrix = matrix
+    print('sigma = ')
+    print_matrix(sigma)
+    
+    print('v_h = ')
+    print_matrix(v_h)
+    
+    print('v = ')
+    print_matrix(v)
+    
+    print('I = ')
+    print_matrix(I)
+    
+    print('u = ')
+    print_matrix(u)
+    
+    print('mean = ')
+    print_matrix(get_mean(T))
+    
+    print('F = ')
+    print(get_characteristic(T))
+    
+    
+
+class Meantrans:
+    
+    def __init__(self,T):
+        self.T = T
         
-        self.matrix_list = list()
+        self.result = list()
         self.norm_list = list() 
         self.normal_characteristic_list = list() 
         
-        
     def compute(self, n=0, s=0.5, t=0.5): # n : iteration count                 
         
-        #init
-        if len(self.matrix_list) == 0:  
-            self.n=n
-            self.matrix_list.append(Matrix(self.matrix))
-            for _ in range(n):    
-                next_matrix : np.matrix = self.matrix_list[-1].get_mean()
-                self.matrix_list.append(Matrix(next_matrix))
-            
-            for matrix in self.matrix_list:
-                norm = np.linalg.norm(matrix.matrix)
-                distance_matrix = matrix.matrix @ matrix.matrix.H - matrix.matrix.H @ matrix.matrix
-                distance = np.linalg.norm(distance_matrix)
-            
-                self.norm_list.append(norm)
-                self.normal_characteristic_list.append(distance)
-
-        elif len(self.matrix_list) >= n+1:
-            print('already computed')
-                        
-        else :
-            self.n = n
-            for _ in range(n-len(self.matrix_list)+1):
-                next_matrix : np.matrix = self.matrix_list[-1].get_mean()
-                self.matrix_list.append(Matrix(next_matrix))
-                
-                norm = np.linalg.norm(next_matrix)
-                distance_matrix = next_matrix @ next_matrix.H - next_matrix.H @ next_matrix
-                distance = np.linalg.norm(distance_matrix)
-            
-                self.norm_list.append(norm)
-                self.normal_characteristic_list.append(distance)
-
-                
-    def get_matrix_list(self,is_np = True):
-        if not is_np :
-            return self.matrix_list
-        return [matrix.matrix for matrix in self.matrix_list]
+        self.n=n
+        self.result.append(self.T)
         
+        for _ in range(self.n):    
+            T_hat = get_mean(self.result[-1])
+            self.result.append(T_hat)
+            
+        for T in self.result:
+            norm = get_norm(T)
+            ch = get_characteristic(T)
+        
+            self.norm_list.append(norm)
+            self.normal_characteristic_list.append(ch)
+
+            
+    def get_info(self,i : int):
+        if not self.result:
+            return 
+        T  = self.result[i]
+        w,sigma,v_h = get_SVD(T)
+        
+    
+    def get_matrix(self,i):
+        if self.n -1 >= i :
+            return self.result[i]
+        return 
     
     #test code
 if __name__ == "__main__":
