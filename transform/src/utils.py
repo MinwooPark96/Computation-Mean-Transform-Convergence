@@ -9,9 +9,9 @@ import random
 from src import transform
 
 
-def save(meantrans : transform.Meantrans, name):
+def save(meantrans : transform.MeanTransform, name):
     
-    assert isinstance(meantrans,transform.Meantrans) == True
+    assert isinstance(meantrans,transform.MeanTransform) == True ,'meantrans is not Meantrans object'
 
     plt.figure(figsize=(16,4))
     
@@ -37,7 +37,10 @@ def save(meantrans : transform.Meantrans, name):
     
     # plt.yscale('log')
     
-    plt.locator_params(axis='x', nbins=meantrans.n/10)
+    # try:
+    #     plt.locator_params(axis='x', nbins=meantrans.n/10)
+    # except:
+    #     pass
     
 
     ax.set_xlabel(ax.get_xlabel(), fontsize = 14, weight = 'bold', color = '0.2')
@@ -61,7 +64,7 @@ def save(meantrans : transform.Meantrans, name):
     df.to_csv('norm/'+name+'.csv')
 
     os.makedirs('matrix',exist_ok=True)
-    np.save('matrix/'+name,np.array(meantrans.result))
+    np.save('matrix/'+name,np.array(meantrans.get_sequence))
     
     
 def generate_random_complex(dim,seed = 42):
@@ -81,4 +84,22 @@ def load_matrix(name,dir='matrix/'):
     return list(np.load(dir+name))
 
 
-
+def is_decreasing(nr_ch : list) -> bool:
+    if len(nr_ch) <= 1:
+        return True
+    
+    e = 1e-14
+    
+    i = 0
+    
+    while i < len(nr_ch)-1:
+        if nr_ch[i+1] < e:
+            break
+        
+        d = nr_ch[i] - nr_ch[i+1]
+        
+        if d < 0:
+            return False
+        i+=1
+    
+    return True

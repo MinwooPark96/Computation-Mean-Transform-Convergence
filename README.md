@@ -1,18 +1,10 @@
 
 
-### Convergence of the iterated mean transforms of a $2 \times 2$ matrix; its Algorithm
-#### Aluthge,Duggal and Mean Transformation.
+### Convergence of the iterated mean transforms of a $2 \times 2$ matrix; 
 
 ---
 
-**Paper Abstraction**
-
-For the polar decomposition $T = U |T | ∈ L(H)$ (defined below), the mean
-transform$ T$ of $T$ is defined by
-$\hat{T} = \frac{1}{2}(T + |T |U ).$
-We prove that the iterated mean transform of a 2 × 2 matrix converges
-a normal matrix. Moreover, we provide the computation method of the
-iterated mean transforms with an Algorithm in Python.
+ we present a computational methodology for iteratively applying the meantransform, facilitated by an algorithm capable of handling square matrices of arbitrary dimensions
 
 ---
 
