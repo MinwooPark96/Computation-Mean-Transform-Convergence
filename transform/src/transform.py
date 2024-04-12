@@ -31,6 +31,9 @@ def get_characteristic(T:M):
     distance = T @ T.H - T.H @ T
     return get_norm(distance)
                 
+def get_square(T:M):
+    return T.H @ T
+
 
 class MeanTransform:
     
@@ -71,11 +74,17 @@ class MeanTransform:
     
     @staticmethod
     def print_helper(T:M , head : Union[str,None] = None,k=4):
+
         rounded_T = np.round(T,k)
+        
         if head is not None:
             print(head)
-        for row in rounded_T:
-            print(row)
+        
+        print(rounded_T)
+        
+        # for row in rounded_T:
+        #     print(row)
+        
         print()
     
     @staticmethod
@@ -86,14 +95,21 @@ class MeanTransform:
         I = np.logical_not(np.isclose(sigma,0)).astype(int)
         u = w@I@v_h
         
-        PRINT_DICT = {'T=':T,'w = ':w,'sigma = ':sigma,'v_h = ':v_h,'v = ':v,'I = ':I,'u = ':u,'mean = ':get_mean(T),'F = ':get_characteristic(T) }
+        PRINT_DICT = {'T=':T, '|T|^2=':get_square(T),'|T|=':v@sigma@v_h,'w = ':w,'sigma = ':sigma,'v_h = ':v_h,'v = ':v,'I = ':I,'u = ':u,'mean = ':get_mean(T),'F = ':get_characteristic(T) }
         
         for key in PRINT_DICT.keys():
-            print(key)
-            MeanTransform.print_helper(T,PRINT_DICT[key],k=k)
+            MeanTransform.print_helper(PRINT_DICT[key],key,k=k)
         
-        print('F = ',get_characteristic(T),end = '\n\n')
-
+        # print('F = ',get_characteristic(T),end = '\n\n')
+    
+    def verbose(self,i,k=4):
+        if not self.sequence:
+            print('not computed yet. please run compute() method')
+        
+        T = self.sequence[i]
+        MeanTransform.verbose_helper(T,k)
+        
+    
     def print_all_matrix(self):
         for i in range(self.n):
             self.print_one_matrix(i)
