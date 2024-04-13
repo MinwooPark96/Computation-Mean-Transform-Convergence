@@ -29,7 +29,7 @@ def example_3_3():
 
 if __name__ == "__main__":
         
-    T = example_3_3()
+    T = example_2_2()
     
     meantrans = transform.MeanTransform(T)
     

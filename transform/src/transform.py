@@ -95,7 +95,7 @@ class MeanTransform:
         I = np.logical_not(np.isclose(sigma,0)).astype(int)
         u = w@I@v_h
         
-        PRINT_DICT = {'T=':T, '|T|^2=':get_square(T),'|T|=':v@sigma@v_h,'w = ':w,'sigma = ':sigma,'v_h = ':v_h,'v = ':v,'I = ':I,'u = ':u,'mean = ':get_mean(T),'F = ':get_characteristic(T) }
+        PRINT_DICT = {'T=':T, '|T|^2=':get_square(T),'|T|=':v@sigma@v_h,'u=':u,'D=':v@sigma@v_h@u,'w = ':w,'sigma = ':sigma,'v_h = ':v_h,'v = ':v,'I = ':I,'u = ':u,'mean = ':get_mean(T),'F = ':get_characteristic(T) }
         
         for key in PRINT_DICT.keys():
             MeanTransform.print_helper(PRINT_DICT[key],key,k=k)

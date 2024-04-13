@@ -4,7 +4,7 @@
 
 ---
 
- we present a computational methodology for iteratively applying the meantransform, facilitated by an algorithm capable of handling square matrices of arbitrary dimensions
+ we present a computational methodology for iteratively applying the meantransform, facilitated by an algorithm capable of handling square matrices of arbitrary dimensions.
 
 ---
 
